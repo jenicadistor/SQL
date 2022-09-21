@@ -1,0 +1,29 @@
+CREATE TABLE store (id integer primary key, item TEXT, price integer, quantity integer);
+
+INSERT INTO store VALUES
+(1, "milk", 5.99, 25), 
+(2, "cheese", 2.50, 40),
+(3, "eggs", 4.99, 60),
+(4, "pasta", 3.00, 30),
+(5, "yogurt", 5.50, 35),
+(6, "pasta sauce", 7.99, 76),
+(7, "chocolate", 2.59, 60),
+(8, "bananas", 3.99, 55),
+(9, "apples", 0.99, 75),
+(10, "watermelon", 10.00, 45),
+(11, "pears", 4.50, 65),
+(12, "rice", 20.00, 50),
+(13, "potatoes", 1.50, 70),
+(14, "onions", 2.99, 80),
+(15, "carrots", 1.99, 60);
+
+SELECT * FROM store;
+
+-- Item ordered by price
+SELECT item, price FROM store ORDER by price;
+
+-- Average price of all items
+SELECT avg (price) from store;
+
+-- Max price of any item in the datebase
+Select MAX (price) from store;
