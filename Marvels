@@ -53,11 +53,15 @@ SELECT * FROM marvels;
 /*Shows characters & popularity ordered by popularity*/
 SELECT name, popularity from marvels ORDER by popularity asc;
 
-/*Shows average, min, max of characters heightby meters */
+/*Shows average, min, max of characters' height by meters and weight by kg*/
 
 SELECT AVG(height_m) from marvels;
 SELECT Min(height_m) from marvels;
 SElect MAX(height_m) from marvels;
+
+SELECT AVG(weight_kg) from marvels;
+SELECT Min(weight_kg) from marvels;
+SElect MAX(weight_kg) from marvels;
 
 /*Shows average of characters intelligence, strenght, speec, durability, energy_projection, and fighting skills*/
 
@@ -67,6 +71,9 @@ SELECT AVG(speed) from marvels;
 SELECT AVG(durability) from marvels;
 SELECT AVG(energy_Projection) from marvels;
 SELECT AVG(fighting_Skills) from marvels;
+
+/*Shows the characters taller and heavier than average*/
+Select name, height_m, weight_kg from marvels WHERE height_m >=2 AND weight_kg >=170;
 
 /*Which character has an intelligence level higher than the average (>4)?*/
 Select name as "Smarter_than_AVG" from marvels
@@ -93,7 +100,7 @@ ORDER by intelligence;
 /*Which Marvel characters are weak, moderate, or strong, in terms of physical strenght?*/
 SELECT name, CASE 
 WHEN strength <= 2 THEN "Weak"
-WHEN strength >= "6" THEN "Strong"
+WHEN strength >= 6 THEN "Strong"
 ELSE "Moderate" 
 END "Phy_St_simple"
 FROM marvels
