@@ -99,16 +99,27 @@ INSERT INTO famous_book (author_id, title, rating) VALUES
     (14, "Six of Crows", 4.49),
     (15, "Vision in White", 4.12);
 
-/*Shows what genre the author is known for writing organized by genre*/    
+/*Skill - multiple joins / 
+Shows what genre the author is known for writing organized by genre*/    
     
-SELECT a.name, c.name AS genre FROM author a
+SELECT a.name as author, c.name AS genre FROM author a
 JOIN author_genre g
 ON a.id = g.author_id
 JOIN genre_category c
 ON c.id = g.genre_id
 ORDER BY c.name ASC;
 
-/*Shows the author's most famous book and its Goodreads rating*/
-SELECT a.name, b.title, b.rating FROM author a
+/*SKILL - joining related tables /
+Shows the author's most famous book and its Goodreads rating |*/
+SELECT a.name as author, b.title as bestselling_book, b.rating As book_rating FROM author a
 JOIN famous_book b
 ON a.id = b.author_id;
+
+/*SKILL - LEFT OUTER JOIN
+Shows all available genres in the table and which authors write which genre*/
+
+SELECT c.name, a.name FROM genre_category c
+LEFT OUTER JOIN author_genre g
+ON c.id = g.genre_id
+LEFT OUTER JOIN author a
+ON a.id = g.author_id
