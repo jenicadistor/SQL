@@ -1,0 +1,114 @@
+/* Create table about the people and what they do here */
+
+/*Data take from https://www.goodreads.com/author/on_goodreads on 10/03/22*/
+
+CREATE TABLE author (
+id INTEGER PRIMARY KEY, 
+name text, 
+Number_Books_written INTEGER);
+
+INSERT INTO author (name, Number_Books_written) values
+    ("Stephen King", 1929),
+    ("Rick Riordan", 273), 
+    ("Colleen Hoover", 68), 
+    ("Cassandra Clare", 190), 
+    ("Sarah J. Maas", 85), 
+    ("James Patterson", 1041 ), 
+    ("John Green", 48), 
+    ("Neil Gaiman", 1470 ), 
+    ("Dan Brown", 126), 
+    ("Nicholas Sparks", 191), 
+    ("Veronica Roth", 48), 
+    ("Brandon Sanderson", 343), 
+    ("John Grisham", 347), 
+    ("Leigh Bardugo", 69), 
+    ("Nora Roberts", 1298),
+    ("Taylor Jenkins Reid", 17), 
+    ("Gillian Flynn", 21), 
+    ("Jodi Picoult", 88), 
+    ("Khaled Hosseini", 27),  
+    ("Jennifer L. Armentrout", 116);
+
+CREATE TABLE genre_category (
+id INTEGER PRIMARY KEY, 
+name TEXT);
+
+INSERT INTO genre_category (name) VALUES
+    ("Horror"), 
+    ("Mystery"), 
+    ("Science Ficton"), 
+    ("Fantasy"), 
+    ("Romance"), 
+    ("Thriller"), 
+    ("Mystery Thriller"), 
+    ("Suspense"), 
+    ("Non-fiction"), 
+    ("History"); 
+
+CREATE TABLE author_genre (
+id INTEGER PRIMARY KEY, 
+author_id INTEGER, 
+genre_id INTEGER);
+
+INSERT INTO author_genre (author_id, genre_id) values
+    (1, 1), 
+    (1, 2), 
+    (2, 3),
+    (2, 4),
+    (3, 5),
+    (3, 6),
+    (4, 3),
+    (4, 4),
+    (5, 4), 
+    (5, 5),
+    (6, 7),
+    (7, 5),
+    (8, 4),
+    (9, 7),
+    (10, 5), 
+    (11, 3), 
+    (11, 4),
+    (12, 3),
+    (12, 4),
+    (13, 6), 
+    (14, 3),
+    (14, 4),
+    (15, 8),
+    (15, 4);
+    
+CREATE TABLE famous_book (
+id INTEGER PRIMARY KEY, 
+author_id INTEGER, 
+title TEXT, 
+rating NUMERIC);
+
+INSERT INTO famous_book (author_id, title, rating) VALUES
+    (1, "The Shining", 4.25), 
+    (2, "The Lightning Thief", 4.29), 
+    (3, "It Ends with Us", 4.38),
+    (4, "City of Bones", 4.08),
+    (5, "A Court of Thorns and Roses", 4.19),
+    (6, "Along Came a Spider", 4.12),
+    (7, "The Fault in Our Stars", 4.16), 
+    (8, "American Gods", 4.11), 
+    (9, "Angels & Demons", 3.93), 
+    (10, "The Notebook", 4.13),
+    (11, "Divergent", 4.16),
+    (12, "Final Empire", 4.46),
+    (13, "A Time to Kill", 4.10),
+    (14, "Six of Crows", 4.49),
+    (15, "Vision in White", 4.12);
+
+/*Shows what genre the author is known for writing organized by genre*/    
+    
+SELECT a.name, c.name AS genre FROM author a
+JOIN author_genre g
+ON a.id = g.author_id
+JOIN genre_category c
+ON c.id = g.genre_id
+ORDER BY c.name ASC;
+
+/*Shows the author's most famous book and its Goodreads rating*/
+SELECT a.name, b.title, b.rating FROM author a
+JOIN famous_book b
+ON a.id = b.author_id;
