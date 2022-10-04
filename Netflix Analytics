@@ -9,6 +9,12 @@ FROM "CharlotteChaze/BreakIntoTech"."netflix_people" people
 LEFT JOIN "CharlotteChaze/BreakIntoTech"."netflix_titles_info" title
 ON people.show_id = title.show_id;
 
+--What movies are approriate for all ages?--
+SELECT title, rating, duration
+FROM "CharlotteChaze/BreakIntoTech"."netflix_titles_info"
+WHERE type ='Movie' AND rating='G'
+ORDER by title;
+
 --How many movie titles are there in the database? (movies only, not tv shows)--
 SELECT count(*)
 FROM "CharlotteChaze/BreakIntoTech"."netflix_titles_info"
