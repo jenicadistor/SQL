@@ -73,13 +73,22 @@ SELECT AVG(energy_Projection) from marvels;
 SELECT AVG(fighting_Skills) from marvels;
 
 /*Shows the characters taller and heavier than average*/
-Select name, height_m, weight_kg from marvels WHERE height_m >=2 AND weight_kg >=170;
+Select name, height_m, weight_kg 
+from marvels 
+WHERE height_m > (SELECT AVG(height_m) from marvels) 
+AND weight_kg > (SELECT AVG(weight_kg) from marvels);
 
-/*Which character has an intelligence level higher than the average (>4)?*/
+/*Which character has higher than average intelligence?*/
 Select name as "Smarter_than_AVG" from marvels
     GROUP BY name
-    HAVING intelligence > 4.1;
+    HAVING intelligence > (SELECT AVG(intelligence) from marvels);
 
+/*Which character has higher than average intelligence?*/
+Select name as "Smarter_than_AVG_Good_Guys" from marvels
+    GROUP BY name
+    HAVING intelligence > (SELECT AVG(intelligence) from marvels)
+    AND alignment = "Good";
+    
 /*Idenifies Marvel characters as hero, villian, or either*/
 SELECT name, CASE 
 WHEN alignment = "Good" THEN "Hero"
@@ -90,8 +99,8 @@ FROM marvels;
 
 /*Can this marvel character solve help you with your math homework?*/
 SELECT name, CASE 
-WHEN intelligence <= 1 THEN "Um...no"
-WHEN intelligence >= 4 THEN "YES"
+WHEN intelligence <= 2 THEN "Um...no"
+WHEN intelligence > (SELECT AVG(intelligence) from marvels) THEN "YES"
 ELSE "Maybe?" 
 END "Math_help"
 FROM marvels
@@ -100,7 +109,7 @@ ORDER by intelligence;
 /*Which Marvel characters are weak, moderate, or strong, in terms of physical strenght?*/
 SELECT name, CASE 
 WHEN strength <= 2 THEN "Weak"
-WHEN strength >= 6 THEN "Strong"
+WHEN strength > (SELECT AVG(strength) from marvels) THEN "Strong"
 ELSE "Moderate" 
 END "Phy_St_simple"
 FROM marvels
@@ -109,7 +118,7 @@ ORDER BY strength;
 /*Which Marvel characters would last longest in a fight?*/
 SELECT name, CASE 
 WHEN durability <= 2 THEN "Oh no, pain ><"
-WHEN durability >= 5 THEN "I'm invincible"
+WHEN durability > (SELECT AVG(durability) from marvels) THEN "I'm invincible"
 ELSE "I can take a punch" 
 END "Can you take the pain?"
 FROM marvels
@@ -117,4 +126,4 @@ ORDER BY durability;
 
 /*Shows number of characters in which alignment*/
 SELECT alignment, COUNT (*)
-FROM marvels GROUP by alignment
+FROM marvels GROUP by alignment;
