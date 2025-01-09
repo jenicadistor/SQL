@@ -1,0 +1,37 @@
+--orders the items by price--
+SELECT item_name, price
+FROM superstore
+ORDER BY price;
+
+--show average about the item prices--
+SELECT AVG(price), item_name
+FROM superstore
+GROUP BY item_name;
+
+--show a average price for items in the category of "Kitchen Supplies"--
+SELECT AVG(price), item_name, category
+FROM superstore
+WHERE category='Kitchen Supplies'
+GROUP BY item_name;
+
+--Show the items' highest and lowest average rating - Electonics category--
+SELECT MAX(average_rating), MIN (average_rating), item_name, category
+FROM superstore
+WHERE category='Electronics'
+GROUP BY item_name
+ORDER BY average_rating desc;
+
+--which item has the highest average rating in the Appliances category--
+SELECT MAX(average_rating), item_name, category
+FROM superstore
+WHERE category='Appliances';
+
+--which item has the highest average rating in the Furnishings category--
+SELECT MAX(average_rating), item_name, category
+FROM superstore
+WHERE category='Furnishings';
+
+--which item has the highest average rating in the Kitchen Supplies category--
+SELECT MAX(average_rating), item_name, category
+FROM superstore
+WHERE category='Kitchen Supplies';
